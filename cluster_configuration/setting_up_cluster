@@ -1,0 +1,11 @@
+get your build machine and type this command
+
+kubectl edit configmap/aws-auth -n kube-system
+
+
+and add the below context in there
+
+- groups:
+      - system:masters
+      rolearn: arn:aws:iam::add-your-codebuild-service-role
+      username: build

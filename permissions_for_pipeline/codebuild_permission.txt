@@ -1,0 +1,53 @@
+Attach this policy for the codebuild service role.
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Statement1",
+            "Effect": "Allow",
+            "Action": [
+                "eks:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "Statement2",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "Statement3",
+            "Effect": "Allow",
+            "Action": [
+                "ecr:*"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "Statement4",
+            "Effect": "Allow",
+            "Action": [
+                "eks-auth:*"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "Statement5",
+            "Effect": "Allow",
+            "Action": [
+                "sts:*"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}

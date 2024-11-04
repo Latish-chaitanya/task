@@ -1,0 +1,58 @@
+Attach this policy for the codepipeline service role.
+
+1. AmazonEKSClusterPolicy
+2. AmazonEKSWorkerNodePolicy
+
+and also add this json policy
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Statement1",
+            "Effect": "Allow",
+            "Action": [
+                "eks:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "Statement2",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "Statement3",
+            "Effect": "Allow",
+            "Action": [
+                "ecr:*"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "Statement4",
+            "Effect": "Allow",
+            "Action": [
+                "eks-auth:*"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "Statement5",
+            "Effect": "Allow",
+            "Action": [
+                "sts:*"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}

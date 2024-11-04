@@ -1,0 +1,71 @@
+####################################################################################################################################################################																			
+															Cluster Creation and Configuration:
+												Creating an AWS Kubernetes Service (EKS) cluster using the AWS CLI.
+####################################################################################################################################################################
+
+
+
+step 1 :- 
+	aws iam create-role --role-name eks-cluster-role --assume-role-policy-document file://eks-cluster-trust-policy.json
+step 2 :-
+	aws iam attach-role-policy --role-name eks-cluster-role --policy-arn arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
+step 3 :-
+	aws iam create-role --role-name eks-worker-node-role --assume-role-policy-document file://eks-worker-trust-policy.json
+step 4 :-
+	aws iam attach-role-policy --role-name eks-worker-node-role --policy-arn arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
+step 5 :-
+	aws iam attach-role-policy --role-name eks-worker-node-role --policy-arn arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+step 6 :-
+	aws iam attach-role-policy --role-name eks-worker-node-role --policy-arn arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+step 7 :-
+	aws eks create-cluster --region us-east-1 --name my-cluster1 --kubernetes-version 1.30 --role-arn arn:aws:iam::010438506754:role/eks-cluster-role --resources-vpc-config subnetIds= subnet-059421f3c982cc00a,subnet-00265495dce745760
+step 9 :-
+	aws eks describe-cluster --name my-cluster1 --region us-east-1 --query "cluster.status" --output text
+step 10 :-
+	aws iam create-instance-profile --instance-profile-name eks-worker-node-instance-profile
+step 11 :-
+	aws iam add-role-to-instance-profile --instance-profile-name eks-worker-node-instance-profile --role-name eks-worker-node-role
+step 12 :-
+	aws iam get-instance-profile --instance-profile-name eks-worker-node-instance-profile
+step 13 :-
+	aws iam get-role --role-name eks-worker-node-role --query Role.Arn --output text
+step 14 :-
+	aws eks create-nodegroup --cluster-name my-cluster1 --nodegroup-name my-nodegroup1 --subnets subnet-059421f3c982cc00a subnet-00265495dce745760  --instance-types t2.micro --scaling-config minSize=1,maxSize=3,desiredSize=2 --disk-size 20  --node-role arn:aws:iam::010438506754:role/eks-worker-node-role --region us-east-1 
+step 15 :-
+	aws eks describe-nodegroup --cluster-name my-cluster1 --nodegroup-name my-nodegroup --region us-east-1 --query "nodegroup.status"
+step 16 :-
+	aws eks delete-nodegroup --cluster-name my-cluster --nodegroup-name my-nodegroup --region us-east-1
+step 17 :-
+	aws eks describe-nodegroup --cluster-name my-cluster1 --nodegroup-name my-nodegroup1 --region us-east-1 --query "nodegroup.status" --output text
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+																	MUST DO THIS 	
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+aws eks update-kubeconfig --name my-cluster --region us-east-1
+
+*******************************************************************************************************************************************************************
+********************************************************************************************************************************************************************
+																	DELETION OF NODEGROUP AND CLUSTER	
+********************************************************************************************************************************************************************
+********************************************************************************************************************************************************************
+
+step 18 :-
+	aws eks list-nodegroups --cluster-name my-cluster
+step 19 :-
+	aws eks delete-nodegroup --cluster-name my-cluster --nodegroup-name my-nodegroup
+step 20 :-
+		aws eks describe-nodegroup --cluster-name my-cluster --nodegroup-name my-nodegroup --region us-east-1 --query "nodegroup.status" --output text
+step 21 :-
+		aws eks list-nodegroups --cluster-name my-cluster
+step 22 :-
+	aws eks delete-cluster --name my-cluster1
+step 23 :-
+		aws eks describe-cluster --name my-cluster1 --region us-east-1 --query "cluster.status" --output text
+step 24 :-
+		aws eks list-clusters
+
+
+reference materials :-  
+	https://docs.aws.amazon.com/cli/latest/reference/eks/create-nodegroup.html
+	https://docs.aws.amazon.com/code-library/latest/ug/eks_example_eks_CreateNodegroup_section.html
