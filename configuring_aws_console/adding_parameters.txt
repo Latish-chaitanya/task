@@ -1,0 +1,2 @@
+go to your parameter store and add the login credentials of your docker 
+(you will be acessing them from your buildfile)

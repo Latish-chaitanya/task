@@ -4,6 +4,8 @@ Attach this policy for the codepipeline service role.
 2. AmazonEKSWorkerNodePolicy
 
 and also add this json policy
+ 
+3. 
 
 {
     "Version": "2012-10-17",

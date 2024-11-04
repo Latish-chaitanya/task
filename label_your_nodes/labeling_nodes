@@ -1,0 +1,6 @@
+kubectl get nodes
+
+kubectl label nodes <node-name> type=app
+
+
+kubectl label nodes <node-name> type=database
