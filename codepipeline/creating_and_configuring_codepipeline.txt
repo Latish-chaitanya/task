@@ -1,0 +1,19 @@
+step 1:  Navigate to AWS Codepipeline.
+
+step 2:  Select create a new pipeline and later select build without template.
+
+step 3:  Select the source as Github and add connection with the git account.
+
+step 4: add the repo for which you want to create a pipeline and later give the branch 
+
+step 5: Later select the filter for triggering.
+
+step 6: Select other build providers and select AWS Codebuild if you already have a project select it or else click on create a new project.
+
+step 7: configure the codibuild as needed and in the buildspec field select "Use a buildspec file" and make sure that your buildspec.yml is in the root directory of you Github
+
+step 8: click on continue to codepipeline.
+
+step 9: click on the skip deploy stage as we dont have option to deploy into eks.
+
+step 10: review and create the pipeline.
