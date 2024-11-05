@@ -33,11 +33,7 @@ phases:
   post_build:
     commands:
       - docker push 010438506754.dkr.ecr.us-east-1.amazonaws.com/$IMAGE:$BUILD_NUMBER
-      # - aws eks update-kubeconfig --name my-cluster1
       - aws eks update-kubeconfig --name my-cluster1 --region us-east-1 --kubeconfig $HOME/.kube/config
-      - kubectl config get-contexts
-      - kubectl get nodes 
-      - kubectl get nodes 
       - template=`cat "deployment.yml" | sed "s/latest/$BUILD_NUMBER/g"`
       - echo "$template"
       - echo "$template" | kubectl apply -f -
