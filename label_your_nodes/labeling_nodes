@@ -1,6 +1,5 @@
 kubectl get nodes
 
-kubectl label nodes <node-name> type=app
+kubectl label nodes ip-10-0-2-4.ec2.internal type=app
 
-
-kubectl label nodes <node-name> type=database
+kubectl label nodes ip-10-0-2-101.ec2.internal type=database
